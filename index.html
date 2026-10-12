@@ -15,50 +15,69 @@
   label { display:block; font-size:.85rem; color:var(--mut); margin:12px 0 5px; }
   .btn { background:var(--pri); color:#fff; border:0; padding:12px 18px; border-radius:10px; font-weight:600; }
   .btn:hover { background:var(--pri2); }
+  .btn:disabled { opacity:.6; cursor:wait; }
   .btn.sec { background:#e8edf6; color:var(--pri); }
   .btn.sec:hover { background:#dbe3f1; }
   .btn.perigo { background:#fdecea; color:var(--err); }
-  .btn.mini { padding:6px 10px; font-size:.82rem; }
+  .btn.zap { background:#e0f5ee; color:#14754a; text-decoration:none; display:inline-block; }
+  .btn.mini { padding:6px 10px; font-size:.8rem; border-radius:8px; }
   .msg { min-height:20px; font-size:.9rem; margin-top:10px; }
   .msg.err { color:var(--err); } .msg.ok { color:var(--ok); }
 
   /* Login */
   #login { min-height:100vh; display:flex; align-items:center; justify-content:center; padding:20px; }
   .login-box { background:var(--card); width:100%; max-width:380px; border-radius:18px; box-shadow:0 10px 30px rgba(20,40,80,.12); overflow:hidden; text-align:center; }
-  .login-img { background:#e8edf6; min-height:150px; display:flex; align-items:center; justify-content:center; }
+  .login-img { background:#e8edf6; display:flex; align-items:center; justify-content:center; }
   .login-img img { width:100%; max-height:240px; object-fit:cover; display:block; }
   .login-corpo { padding:22px 24px 26px; }
   .login-corpo h1 { margin:0 0 4px; font-size:1.5rem; letter-spacing:.5px; }
   .login-corpo p { margin:0 0 14px; color:var(--mut); font-size:.9rem; }
 
   /* App */
-  header { background:var(--pri); color:#fff; padding:14px 18px; display:flex; align-items:center; justify-content:space-between; position:sticky; top:0; z-index:5; }
+  header { background:var(--pri); color:#fff; padding:14px 18px; display:flex; align-items:center; justify-content:space-between; position:sticky; top:0; z-index:5; gap:10px; }
   header h1 { margin:0; font-size:1.15rem; }
+  header small { opacity:.8; font-weight:400; margin-left:6px; }
   header button { background:rgba(255,255,255,.18); color:#fff; border:0; padding:7px 12px; border-radius:8px; }
-  nav { display:flex; gap:6px; padding:12px 14px 0; max-width:900px; margin:0 auto; }
+  nav { display:flex; gap:6px; padding:12px 14px 0; max-width:960px; margin:0 auto; }
   nav button { flex:1; padding:11px; border:0; background:#e8edf6; color:var(--pri); border-radius:10px 10px 0 0; font-weight:600; }
   nav button.ativa { background:var(--card); box-shadow:0 -2px 0 var(--pri) inset; }
-  main { max-width:900px; margin:0 auto; padding:0 14px 40px; }
+  main { max-width:960px; margin:0 auto; padding:0 14px 40px; }
   .card { background:var(--card); border-radius:0 0 14px 14px; padding:18px; box-shadow:0 2px 10px rgba(20,40,80,.06); }
   .linha2 { display:grid; grid-template-columns:1fr 1fr; gap:12px; }
   @media (max-width:560px) { .linha2 { grid-template-columns:1fr; } }
   .acoes { display:flex; gap:10px; margin-top:16px; flex-wrap:wrap; }
   .aviso-edicao { background:#fff6dd; border:1px solid #f0dc9a; padding:9px 12px; border-radius:10px; font-size:.9rem; margin-bottom:6px; }
 
-  .filtros { display:flex; gap:10px; align-items:end; flex-wrap:wrap; }
-  .filtros > div { flex:1; min-width:150px; }
-  .resumo { display:grid; grid-template-columns:repeat(auto-fit,minmax(110px,1fr)); gap:10px; margin:16px 0; }
+  .filtros { display:grid; grid-template-columns:repeat(auto-fit,minmax(140px,1fr)); gap:10px; align-items:end; }
+  .filtros label { margin-top:0; }
+  .resumo { display:grid; grid-template-columns:repeat(auto-fit,minmax(130px,1fr)); gap:10px; margin:16px 0 8px; }
   .res { background:#f1f5fb; border-radius:12px; padding:12px; text-align:center; }
-  .res b { display:block; font-size:1.4rem; color:var(--pri); }
-  .res span { font-size:.8rem; color:var(--mut); }
+  .res b { display:block; font-size:1.25rem; color:var(--pri); }
+  .res span { font-size:.78rem; color:var(--mut); }
+  .res.verde b { color:var(--ok); } .res.laranja b { color:#b36b00; }
+  .porforma { font-size:.88rem; color:var(--mut); margin:4px 2px 14px; line-height:1.7; }
+  .porforma span { margin-right:14px; white-space:nowrap; }
   .tabela { overflow-x:auto; }
-  table { width:100%; border-collapse:collapse; font-size:.92rem; }
+  table { width:100%; border-collapse:collapse; font-size:.9rem; }
   th, td { text-align:left; padding:10px 8px; border-bottom:1px solid var(--bd); vertical-align:top; }
-  th { color:var(--mut); font-weight:600; font-size:.8rem; text-transform:uppercase; }
-  .tag { display:inline-block; padding:2px 9px; border-radius:20px; font-size:.78rem; font-weight:600; background:#e8edf6; color:var(--pri); }
+  th { color:var(--mut); font-weight:600; font-size:.78rem; text-transform:uppercase; }
+  td.num, th.num { text-align:right; white-space:nowrap; }
+  .tag { display:inline-block; padding:2px 9px; border-radius:20px; font-size:.76rem; font-weight:600; background:#e8edf6; color:var(--pri); }
   .tag.Pix { background:#e0f5ee; color:#14754a; } .tag.Cartão { background:#e8e6fb; color:#4b3fb5; }
   .tag.Dinheiro { background:#fff0d6; color:#9a6200; } .tag.Oferta { background:#fde6f0; color:#a4306a; }
+  .tag.Pago { background:#e0f5ee; color:#14754a; } .tag.Pendente { background:#fff0d6; color:#9a6200; }
+  .sub { color:var(--mut); font-size:.8rem; }
   .vazio { text-align:center; color:var(--mut); padding:26px 0; }
+  .botoes-linha { display:flex; gap:5px; flex-wrap:wrap; }
+  .topo-rel { display:flex; justify-content:flex-end; gap:8px; margin-top:12px; flex-wrap:wrap; }
+
+  @media print {
+    body { background:#fff; }
+    header, nav, .filtros, .topo-rel, .botoes-linha, th.acao, td.acao, .msg { display:none !important; }
+    .card { box-shadow:none; padding:0; }
+    #telaCad, #telaHist { display:none !important; }
+    #telaRel { display:block !important; }
+  }
 </style>
 </head>
 <body>
@@ -80,12 +99,13 @@
 <!-- APP -->
 <section id="app" class="oculto">
   <header>
-    <h1>CONTROLE HF</h1>
+    <h1>CONTROLE HF <small id="nivelTxt"></small></h1>
     <button id="btnSair">Sair</button>
   </header>
   <nav>
     <button id="tabCad" class="ativa">Cadastro</button>
-    <button id="tabRel">Relatório</button>
+    <button id="tabRel" class="so-admin">Relatório</button>
+    <button id="tabHist" class="so-admin">Histórico</button>
   </nav>
   <main>
     <!-- Cadastro -->
@@ -95,6 +115,16 @@
       <input id="fNome" placeholder="Nome completo" autocomplete="off">
       <div class="linha2">
         <div>
+          <label for="fTel">Telefone / WhatsApp</label>
+          <input id="fTel" type="tel" placeholder="(87) 99999-9999" autocomplete="off">
+        </div>
+        <div>
+          <label for="fData">Data da inscrição</label>
+          <input type="date" id="fData">
+        </div>
+      </div>
+      <div class="linha2">
+        <div>
           <label for="fForma">Forma de pagamento</label>
           <select id="fForma">
             <option value="">Selecione...</option>
@@ -102,10 +132,12 @@
           </select>
         </div>
         <div>
-          <label for="fData">Data da inscrição</label>
-          <input type="date" id="fData">
+          <label for="fValor">Valor (R$)</label>
+          <input id="fValor" type="number" min="0" step="0.01" inputmode="decimal" placeholder="0,00">
         </div>
       </div>
+      <label for="fStatus">Status do pagamento</label>
+      <select id="fStatus"><option>Pago</option><option>Pendente</option></select>
       <label for="fObs">Observação</label>
       <textarea id="fObs" rows="3" placeholder="Opcional"></textarea>
       <div class="acoes">
@@ -119,56 +151,95 @@
     <div class="card oculto" id="telaRel">
       <div class="filtros">
         <div><label for="fMes">Mês</label><input type="month" id="fMes"></div>
-        <div><label for="fBusca">Buscar nome</label><input id="fBusca" placeholder="Digite parte do nome"></div>
-        <button class="btn sec" id="btnTodos">Ver todos</button>
+        <div><label for="fBusca">Buscar nome</label><input id="fBusca" placeholder="Parte do nome"></div>
+        <div><label for="fFiltroForma">Pagamento</label>
+          <select id="fFiltroForma"><option value="">Todos</option><option>Pix</option><option>Cartão</option><option>Dinheiro</option><option>Oferta</option></select></div>
+        <div><label for="fFiltroStatus">Status</label>
+          <select id="fFiltroStatus"><option value="">Todos</option><option>Pago</option><option>Pendente</option></select></div>
+      </div>
+      <div class="topo-rel">
+        <button class="btn sec mini" id="btnTodos">Ver todos os meses</button>
+        <button class="btn sec mini" id="btnCsv">Exportar planilha (CSV)</button>
+        <button class="btn sec mini" id="btnPdf">Imprimir / PDF</button>
       </div>
       <div class="resumo" id="resumo"></div>
+      <div class="porforma" id="porforma"></div>
       <div class="tabela">
         <table>
-          <thead><tr><th>Data</th><th>Nome</th><th>Pagamento</th><th>Obs.</th><th></th></tr></thead>
+          <thead><tr><th>Data</th><th>Nome</th><th>Pagamento</th><th class="num">Valor</th><th>Status</th><th>Obs.</th><th class="acao"></th></tr></thead>
           <tbody id="corpo"></tbody>
         </table>
         <div class="vazio oculto" id="vazio">Nenhum cadastro encontrado.</div>
       </div>
       <div class="msg" id="msgRel"></div>
     </div>
+
+    <!-- Histórico -->
+    <div class="card oculto" id="telaHist">
+      <div class="topo-rel" style="margin-top:0"><button class="btn sec mini" id="btnRecarregarHist">Atualizar</button></div>
+      <div class="tabela">
+        <table>
+          <thead><tr><th>Quando</th><th>Ação</th><th>Nome</th><th>Detalhe</th><th>Acesso</th></tr></thead>
+          <tbody id="corpoHist"></tbody>
+        </table>
+        <div class="vazio oculto" id="vazioHist">Nenhuma alteração registrada.</div>
+      </div>
+      <div class="msg" id="msgHist"></div>
+    </div>
   </main>
 </section>
 
 <script>
+  /* ========= CONFIGURAÇÃO ========= */
+  var API_URL = 'https://script.google.com/macros/s/AKfycbzAB3G8JNPEEDbT_2RWrEKQEYM8ExAItIH-IdKEvL0avxE6dFU5cs74BoIyYTDEfpDA/exec';
+  var IMAGEM_LINK = 'https://ibb.co/1fqTk6pC';   // página da imagem (o script busca o link direto)
+  var IMAGEM_DIRETA = '';                         // opcional: cole aqui o "link direto" (i.ibb.co/...) se a imagem não aparecer
+  /* ================================= */
+
   var token = sessionStorage.getItem('hf_token') || '';
+  var nivel = sessionStorage.getItem('hf_nivel') || '';
   var registros = [];
   var editandoId = '';
+  var BRL = function (v) { return Number(v || 0).toLocaleString('pt-BR', { style: 'currency', currency: 'BRL' }); };
 
   function $(id) { return document.getElementById(id); }
   function esc(s) { var d = document.createElement('div'); d.textContent = s == null ? '' : s; return d.innerHTML; }
   function hojeISO() { var d = new Date(); d.setMinutes(d.getMinutes() - d.getTimezoneOffset()); return d.toISOString().slice(0, 10); }
-  function mesAtual() { return hojeISO().slice(0, 7); }
+  function fmtData(s) { return s ? s.split('-').reverse().join('/') : ''; }
+  function mostrar(el, texto, tipo) { el.textContent = texto || ''; el.className = 'msg ' + (tipo || ''); }
 
-  function api(fn) {
-    var args = Array.prototype.slice.call(arguments, 1);
-    return new Promise(function (ok, erro) {
-      google.script.run.withSuccessHandler(ok).withFailureHandler(function (e) {
-        var m = (e && e.message) ? e.message : String(e);
-        if (/Sessão expirada/.test(m)) sair();
-        erro(new Error(m.replace(/^Error:\s*/, '')));
-      })[fn].apply(google.script.run, args);
-    });
+  function api(acao, dados) {
+    var corpo = Object.assign({ acao: acao, token: token }, dados || {});
+    return fetch(API_URL, { method: 'POST', headers: { 'Content-Type': 'text/plain;charset=utf-8' }, body: JSON.stringify(corpo) })
+      .catch(function () { throw new Error('Sem conexão com o servidor.'); })
+      .then(function (r) { return r.json().catch(function () { return null; }); })
+      .then(function (j) {
+        if (!j) throw new Error('Resposta inválida. Confira se o script está implantado com acesso "Qualquer pessoa".');
+        if (!j.ok && !j.duplicado) {
+          if (/Sessão expirada/.test(j.erro || '')) sair();
+          throw new Error(j.erro || 'Erro desconhecido.');
+        }
+        return j;
+      });
   }
 
-  function mostrar(msgEl, texto, tipo) { msgEl.textContent = texto || ''; msgEl.className = 'msg ' + (tipo || ''); }
+  /* ---------- Imagem do login ---------- */
+  (function () {
+    var im = $('imgLogin');
+    function por(url) { if (url) { im.src = url; im.classList.remove('oculto'); } }
+    if (IMAGEM_DIRETA) return por(IMAGEM_DIRETA);
+    por(localStorage.getItem('hf_img'));
+    api('imagem').then(function (j) { if (j.url) { localStorage.setItem('hf_img', j.url); por(j.url); } }).catch(function () {});
+  })();
 
-  /* Login */
-  api('getImagemLogin').then(function (url) {
-    if (url) { var im = $('imgLogin'); im.src = url; im.classList.remove('oculto'); }
-  }).catch(function () {});
-
+  /* ---------- Login ---------- */
   function entrar() {
     mostrar($('msgLogin'), '');
     var b = $('btnEntrar'); b.disabled = true; b.textContent = 'Entrando...';
-    api('login', $('senha').value).then(function (r) {
-      if (r.ok) { token = r.token; sessionStorage.setItem('hf_token', token); abrirApp(); }
-      else mostrar($('msgLogin'), r.msg, 'err');
+    api('login', { senha: $('senha').value }).then(function (j) {
+      token = j.token; nivel = j.nivel;
+      sessionStorage.setItem('hf_token', token); sessionStorage.setItem('hf_nivel', nivel);
+      abrirApp();
     }).catch(function (e) { mostrar($('msgLogin'), e.message, 'err'); })
       .then(function () { b.disabled = false; b.textContent = 'Entrar'; $('senha').value = ''; });
   }
@@ -177,92 +248,190 @@
 
   function abrirApp() {
     $('login').classList.add('oculto'); $('app').classList.remove('oculto');
-    $('fData').value = hojeISO(); $('fMes').value = mesAtual();
-    carregar();
+    var admin = nivel === 'admin';
+    $('nivelTxt').textContent = admin ? '· administrador' : '· operador';
+    document.querySelectorAll('.so-admin').forEach(function (b) { b.classList.toggle('oculto', !admin); });
+    limparForm(); $('fMes').value = hojeISO().slice(0, 7);
+    aba('cad');
   }
   function sair() {
-    token = ''; sessionStorage.removeItem('hf_token');
+    token = ''; nivel = ''; sessionStorage.removeItem('hf_token'); sessionStorage.removeItem('hf_nivel');
     $('app').classList.add('oculto'); $('login').classList.remove('oculto');
   }
   $('btnSair').onclick = sair;
 
-  /* Abas */
-  function aba(qual) {
-    $('tabCad').classList.toggle('ativa', qual === 'cad');
-    $('tabRel').classList.toggle('ativa', qual === 'rel');
-    $('telaCad').classList.toggle('oculto', qual !== 'cad');
-    $('telaRel').classList.toggle('oculto', qual !== 'rel');
-    if (qual === 'rel') carregar();
+  /* ---------- Abas ---------- */
+  function aba(q) {
+    ['Cad', 'Rel', 'Hist'].forEach(function (n) {
+      var ativa = q === n.toLowerCase();
+      $('tab' + n).classList.toggle('ativa', ativa);
+      $('tela' + n).classList.toggle('oculto', !ativa);
+    });
+    if (q === 'rel') carregar();
+    if (q === 'hist') carregarHist();
   }
   $('tabCad').onclick = function () { aba('cad'); };
   $('tabRel').onclick = function () { aba('rel'); };
+  $('tabHist').onclick = function () { aba('hist'); };
 
-  /* Cadastro / edição */
+  /* ---------- Cadastro / edição ---------- */
   function limparForm() {
-    editandoId = ''; $('fNome').value = ''; $('fForma').value = ''; $('fObs').value = ''; $('fData').value = hojeISO();
+    editandoId = '';
+    $('fNome').value = ''; $('fTel').value = ''; $('fForma').value = ''; $('fValor').value = '';
+    $('fStatus').value = 'Pago'; $('fObs').value = ''; $('fData').value = hojeISO();
     $('avisoEdicao').classList.add('oculto'); $('btnCancelar').classList.add('oculto');
     $('btnSalvar').textContent = 'Salvar cadastro';
   }
   $('btnCancelar').onclick = function () { limparForm(); mostrar($('msgCad'), ''); };
 
-  $('btnSalvar').onclick = function () {
-    var r = { id: editandoId, nome: $('fNome').value, forma: $('fForma').value, data: $('fData').value, obs: $('fObs').value };
-    if (!r.nome.trim()) return mostrar($('msgCad'), 'Informe o nome completo.', 'err');
-    if (!r.forma) return mostrar($('msgCad'), 'Escolha a forma de pagamento.', 'err');
+  function lerForm(forcar) {
+    return { id: editandoId, nome: $('fNome').value, tel: $('fTel').value, forma: $('fForma').value, valor: $('fValor').value,
+             status: $('fStatus').value, data: $('fData').value, obs: $('fObs').value, forcar: !!forcar };
+  }
+
+  function enviar(r) {
     var b = $('btnSalvar'); b.disabled = true; mostrar($('msgCad'), 'Salvando...');
-    api('salvar', token, r).then(function () {
+    return api('salvar', { registro: r }).then(function (j) {
+      if (j.duplicado) {
+        var e = j.existente;
+        if (confirm('Já existe cadastro de "' + e.nome + '" neste mês (' + fmtData(e.data) + ', ' + e.forma + ', ' + BRL(e.valor) + ').\n\nCadastrar mesmo assim?')) {
+          b.disabled = false; return enviar(Object.assign({}, r, { forcar: true }));
+        }
+        mostrar($('msgCad'), 'Cadastro cancelado (nome repetido).', 'err'); return;
+      }
       var era = !!editandoId; limparForm();
       mostrar($('msgCad'), era ? 'Cadastro atualizado!' : 'Cadastro salvo!', 'ok');
     }).catch(function (e) { mostrar($('msgCad'), e.message, 'err'); })
       .then(function () { b.disabled = false; });
+  }
+
+  $('btnSalvar').onclick = function () {
+    var r = lerForm(false);
+    if (!r.nome.trim()) return mostrar($('msgCad'), 'Informe o nome completo.', 'err');
+    if (!r.forma) return mostrar($('msgCad'), 'Escolha a forma de pagamento.', 'err');
+    enviar(r);
   };
 
   function editar(id) {
     var r = registros.filter(function (x) { return x.id === id; })[0]; if (!r) return;
-    editandoId = id; $('fNome').value = r.nome; $('fForma').value = r.forma; $('fData').value = r.data; $('fObs').value = r.obs;
+    editandoId = id;
+    $('fNome').value = r.nome; $('fTel').value = r.tel; $('fForma').value = r.forma; $('fValor').value = r.valor || '';
+    $('fStatus').value = r.status; $('fData').value = r.data; $('fObs').value = r.obs;
     $('avisoEdicao').classList.remove('oculto'); $('btnCancelar').classList.remove('oculto');
     $('btnSalvar').textContent = 'Salvar alterações'; mostrar($('msgCad'), '');
     aba('cad'); window.scrollTo(0, 0);
   }
 
+  function marcarPago(id) {
+    var r = registros.filter(function (x) { return x.id === id; })[0]; if (!r) return;
+    api('salvar', { registro: Object.assign({}, r, { status: 'Pago' }) })
+      .then(carregar).catch(function (e) { mostrar($('msgRel'), e.message, 'err'); });
+  }
+
   function remover(id) {
     var r = registros.filter(function (x) { return x.id === id; })[0]; if (!r) return;
     if (!confirm('Excluir o cadastro de ' + r.nome + '?')) return;
-    api('excluir', token, id).then(carregar).catch(function (e) { mostrar($('msgRel'), e.message, 'err'); });
+    api('excluir', { id: id }).then(carregar).catch(function (e) { mostrar($('msgRel'), e.message, 'err'); });
   }
 
-  /* Relatório */
+  /* ---------- Relatório ---------- */
   function carregar() {
     mostrar($('msgRel'), 'Carregando...');
-    api('listar', token, $('fMes').value).then(function (lista) {
-      registros = lista; mostrar($('msgRel'), ''); desenhar();
+    api('listar', { mes: $('fMes').value }).then(function (j) {
+      registros = j.registros; mostrar($('msgRel'), ''); desenhar();
     }).catch(function (e) { mostrar($('msgRel'), e.message, 'err'); });
   }
   $('fMes').onchange = carregar;
   $('btnTodos').onclick = function () { $('fMes').value = ''; carregar(); };
-  $('fBusca').oninput = desenhar;
+  ['fBusca', 'fFiltroForma', 'fFiltroStatus'].forEach(function (id) { $(id).oninput = desenhar; });
+
+  function filtrados() {
+    var q = $('fBusca').value.trim().toLowerCase(), f = $('fFiltroForma').value, s = $('fFiltroStatus').value;
+    return registros.filter(function (r) {
+      return (!q || r.nome.toLowerCase().indexOf(q) >= 0) && (!f || r.forma === f) && (!s || r.status === s);
+    });
+  }
+
+  function linkZap(r) {
+    var d = String(r.tel || '').replace(/\D/g, ''); if (d.length < 10) return '';
+    if (d.length <= 11) d = '55' + d;
+    var msg = r.status === 'Pendente'
+      ? 'Olá ' + r.nome.split(' ')[0] + ', tudo bem? Seu pagamento (' + BRL(r.valor) + ') está pendente. Pode nos confirmar?'
+      : 'Olá ' + r.nome.split(' ')[0] + ', tudo bem?';
+    return 'https://wa.me/' + d + '?text=' + encodeURIComponent(msg);
+  }
 
   function desenhar() {
-    var q = $('fBusca').value.trim().toLowerCase();
-    var lista = registros.filter(function (r) { return !q || r.nome.toLowerCase().indexOf(q) >= 0; });
-    var cont = { Pix: 0, 'Cartão': 0, Dinheiro: 0, Oferta: 0 };
-    lista.forEach(function (r) { if (cont[r.forma] != null) cont[r.forma]++; });
-    $('resumo').innerHTML = '<div class="res"><b>' + lista.length + '</b><span>Inscrições</span></div>' +
-      Object.keys(cont).map(function (k) { return '<div class="res"><b>' + cont[k] + '</b><span>' + k + '</span></div>'; }).join('');
+    var lista = filtrados();
+    var pago = 0, pend = 0, porForma = { Pix: [0, 0], 'Cartão': [0, 0], Dinheiro: [0, 0], Oferta: [0, 0] };
+    lista.forEach(function (r) {
+      if (r.status === 'Pago') pago += r.valor; else pend += r.valor;
+      if (porForma[r.forma]) { porForma[r.forma][0]++; if (r.status === 'Pago') porForma[r.forma][1] += r.valor; }
+    });
+    $('resumo').innerHTML =
+      '<div class="res"><b>' + lista.length + '</b><span>Inscrições</span></div>' +
+      '<div class="res verde"><b>' + BRL(pago) + '</b><span>Total recebido</span></div>' +
+      '<div class="res laranja"><b>' + BRL(pend) + '</b><span>Pendente</span></div>';
+    $('porforma').innerHTML = Object.keys(porForma).map(function (k) {
+      return '<span><b>' + k + ':</b> ' + porForma[k][0] + ' · ' + BRL(porForma[k][1]) + '</span>';
+    }).join('');
+
     $('vazio').classList.toggle('oculto', lista.length > 0);
     $('corpo').innerHTML = lista.map(function (r) {
-      var d = r.data.split('-').reverse().join('/');
-      return '<tr><td>' + esc(d) + '</td><td>' + esc(r.nome) + '</td><td><span class="tag ' + esc(r.forma) + '">' + esc(r.forma) + '</span></td><td>' + esc(r.obs) + '</td>' +
-        '<td style="white-space:nowrap"><button class="btn sec mini" data-e="' + esc(r.id) + '">Editar</button> <button class="btn perigo mini" data-x="' + esc(r.id) + '">Excluir</button></td></tr>';
+      var zap = linkZap(r);
+      return '<tr><td>' + esc(fmtData(r.data)) + '</td>' +
+        '<td>' + esc(r.nome) + (r.tel ? '<div class="sub">' + esc(r.tel) + '</div>' : '') + '</td>' +
+        '<td><span class="tag ' + esc(r.forma) + '">' + esc(r.forma) + '</span></td>' +
+        '<td class="num">' + BRL(r.valor) + '</td>' +
+        '<td><span class="tag ' + esc(r.status) + '">' + esc(r.status) + '</span></td>' +
+        '<td>' + esc(r.obs) + '</td>' +
+        '<td class="acao"><div class="botoes-linha">' +
+          (r.status === 'Pendente' ? '<button class="btn sec mini" data-p="' + esc(r.id) + '">Marcar pago</button>' : '') +
+          (zap ? '<a class="btn zap mini" target="_blank" rel="noopener" href="' + zap + '">WhatsApp</a>' : '') +
+          '<button class="btn sec mini" data-e="' + esc(r.id) + '">Editar</button>' +
+          '<button class="btn perigo mini" data-x="' + esc(r.id) + '">Excluir</button>' +
+        '</div></td></tr>';
     }).join('');
   }
   $('corpo').onclick = function (e) {
     var t = e.target;
     if (t.dataset.e) editar(t.dataset.e);
     if (t.dataset.x) remover(t.dataset.x);
+    if (t.dataset.p) marcarPago(t.dataset.p);
   };
 
-  if (token) abrirApp();
+  /* ---------- Exportar ---------- */
+  $('btnCsv').onclick = function () {
+    var lista = filtrados();
+    if (!lista.length) return mostrar($('msgRel'), 'Nada para exportar.', 'err');
+    var cel = function (v) { return '"' + String(v == null ? '' : v).replace(/"/g, '""') + '"'; };
+    var linhas = [['Data', 'Nome', 'Telefone', 'Pagamento', 'Valor', 'Status', 'Observação'].map(cel).join(';')];
+    lista.forEach(function (r) {
+      linhas.push([fmtData(r.data), r.nome, r.tel, r.forma, String(r.valor).replace('.', ','), r.status, r.obs].map(cel).join(';'));
+    });
+    var blob = new Blob(['\uFEFF' + linhas.join('\r\n')], { type: 'text/csv;charset=utf-8' });
+    var a = document.createElement('a');
+    a.href = URL.createObjectURL(blob);
+    a.download = 'controle-hf-' + ($('fMes').value || 'todos') + '.csv';
+    document.body.appendChild(a); a.click(); a.remove();
+  };
+  $('btnPdf').onclick = function () { window.print(); };
+
+  /* ---------- Histórico ---------- */
+  function carregarHist() {
+    mostrar($('msgHist'), 'Carregando...');
+    api('historico').then(function (j) {
+      mostrar($('msgHist'), '');
+      $('vazioHist').classList.toggle('oculto', j.itens.length > 0);
+      $('corpoHist').innerHTML = j.itens.map(function (i) {
+        return '<tr><td style="white-space:nowrap">' + esc(i.quando) + '</td><td>' + esc(i.acao) + '</td><td>' + esc(i.nome) +
+          '</td><td>' + esc(i.detalhe) + '</td><td>' + esc(i.acesso) + '</td></tr>';
+      }).join('');
+    }).catch(function (e) { mostrar($('msgHist'), e.message, 'err'); });
+  }
+  $('btnRecarregarHist').onclick = carregarHist;
+
+  if (token && nivel) abrirApp();
 </script>
 </body>
 </html>
