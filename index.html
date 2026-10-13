@@ -1,4 +1,6 @@
-<html lang="pt-BR" style="--nav: 68px;"><head>
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
 <meta name="theme-color" content="#4f46e5">
@@ -91,9 +93,17 @@
   .hero small { opacity:.85; font-weight:600; }
   .hero b { display:block; font-size:2rem; margin:2px 0 12px; letter-spacing:-.02em; }
   .hero .linha { display:flex; gap:10px; }
-  .hero .mini { flex:1; background:rgba(255,255,255,.18); border-radius:14px; padding:10px 12px; }
-  .hero .mini strong { display:block; font-size:1.05rem; }
-  .hero .mini span { font-size:.72rem; opacity:.9; }
+  .hero.neg { background:linear-gradient(135deg,#d6392b,#b4234f); box-shadow:0 10px 24px rgba(214,57,43,.28); }
+  .hero .mini { flex:1; min-width:0; background:rgba(255,255,255,.18); border-radius:14px; padding:10px 8px; text-align:center; }
+  .hero .mini strong { display:block; font-size:.9rem; white-space:nowrap; }
+  .hero .mini span { font-size:.7rem; opacity:.9; }
+  .hero .acum { display:flex; justify-content:space-between; align-items:center; margin-top:14px; padding-top:12px; border-top:1px solid rgba(255,255,255,.3); font-size:.88rem; }
+  .hero .acum strong { font-size:1.15rem; }
+  .hero .acum-det { font-size:.74rem; opacity:.85; margin-top:3px; }
+  .valor.neg { color:var(--err); }
+  .total-desp { margin-top:14px; border-radius:20px; padding:16px 18px; background:var(--err-soft); color:var(--err); display:flex; justify-content:space-between; align-items:center; font-weight:700; }
+  .total-desp b { font-size:1.4rem; }
+  .dica { font-size:.8rem; color:var(--mut); margin:10px 4px 0; }
   .forma-scroll { display:flex; gap:10px; overflow-x:auto; margin:14px -16px 0; padding:2px 16px 6px; scrollbar-width:none; }
   .forma-scroll::-webkit-scrollbar { display:none; }
   .fcard { flex:0 0 auto; min-width:112px; background:var(--card); border-radius:16px; padding:12px 14px; box-shadow:var(--sombra); }
@@ -130,7 +140,7 @@
   /* Histórico */
   .hist { margin-top:14px; display:flex; flex-direction:column; gap:10px; }
   .h-item { background:var(--card); border-radius:16px; padding:12px 14px; box-shadow:var(--sombra); border-left:5px solid var(--pri); }
-  .h-item.Excluiu { border-color:var(--err); } .h-item.Cadastrou { border-color:var(--ok); } .h-item.Editou { border-color:#f59e0b; }
+  .h-item.Excluiu, .h-item.Lançou { border-color:var(--err); } .h-item.Cadastrou { border-color:var(--ok); } .h-item.Editou { border-color:#f59e0b; }
   .h-item .l1 { display:flex; justify-content:space-between; gap:8px; font-size:.78rem; color:var(--mut); font-weight:600; }
   .h-item .l2 { font-weight:800; margin-top:3px; }
   .h-item .l3 { font-size:.82rem; color:var(--mut); margin-top:3px; word-break:break-word; }
@@ -138,7 +148,7 @@
   @media print {
     body { background:#fff; color:#000; }
     header, nav, .mes-nav button, .busca, .chips, .exporta, .acoes-item, .forma-scroll, #toast { display:none !important; }
-    #telaCad, #telaHist { display:none !important; }
+    #telaCad, #telaHist, #telaDesp { display:none !important; }
     #telaRel { display:block !important; }
     .item, .hero { box-shadow:none; border:1px solid #ccc; break-inside:avoid; }
     .hero { background:#fff; color:#000; }
@@ -150,9 +160,9 @@
 <div id="toast"></div>
 
 <!-- LOGIN -->
-<section id="login" class="">
+<section id="login">
   <div class="login-box">
-    <div class="login-img"><img id="imgLogin" alt="" class="" src="https://i.ibb.co/nscjFCVX/IMG-1188.png"></div>
+    <div class="login-img"><img id="imgLogin" alt="" class="oculto"></div>
     <div class="login-corpo">
       <h1>CONTROLE HF</h1>
       <p>Digite a senha para entrar</p>
@@ -166,15 +176,15 @@
 <!-- APP -->
 <section id="app" class="oculto">
   <header>
-    <h1>CONTROLE HF<span class="papel" id="nivelTxt">ADMIN</span></h1>
+    <h1>CONTROLE HF<span class="papel" id="nivelTxt"></span></h1>
     <button class="sair" id="btnSair" aria-label="Sair">
-      <svg viewBox="0 0 24 24"><path d="M9 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h4"></path><path d="M16 17l5-5-5-5"></path><path d="M21 12H9"></path></svg>
+      <svg viewBox="0 0 24 24"><path d="M9 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h4"/><path d="M16 17l5-5-5-5"/><path d="M21 12H9"/></svg>
     </button>
   </header>
 
   <main id="main">
     <!-- Cadastro -->
-    <div id="telaCad" class="">
+    <div id="telaCad">
       <div class="aviso-edicao oculto" id="avisoEdicao"><span>✏️ Editando um cadastro</span><button id="btnCancelar">Cancelar</button></div>
       <div class="card">
         <label for="fNome">Nome completo</label>
@@ -212,24 +222,27 @@
     <!-- Relatório -->
     <div id="telaRel" class="oculto">
       <div class="mes-nav">
-        <button class="seta" id="mesAnt" aria-label="Mês anterior"><svg viewBox="0 0 24 24"><path d="M15 18l-6-6 6-6"></path></svg></button>
-        <div class="titulo" id="mesTitulo">outubro<small>2026</small></div>
-        <button class="seta" id="mesProx" aria-label="Próximo mês"><svg viewBox="0 0 24 24"><path d="M9 18l6-6-6-6"></path></svg></button>
+        <button class="seta" id="mesAnt" aria-label="Mês anterior"><svg viewBox="0 0 24 24"><path d="M15 18l-6-6 6-6"/></svg></button>
+        <div class="titulo" id="mesTitulo">—</div>
+        <button class="seta" id="mesProx" aria-label="Próximo mês"><svg viewBox="0 0 24 24"><path d="M9 18l6-6-6-6"/></svg></button>
       </div>
 
-      <div class="hero">
-        <small>Total recebido</small>
-        <b id="hRecebido">R$&nbsp;100,00</b>
+      <div class="hero" id="hero">
+        <small id="hRotulo">Saldo do mês</small>
+        <b id="hSaldo">R$ 0,00</b>
         <div class="linha">
-          <div class="mini"><strong id="hPendente">R$&nbsp;0,00</strong><span>Pendente</span></div>
-          <div class="mini"><strong id="hQtd">1</strong><span>Inscrições</span></div>
+          <div class="mini"><strong id="hRecebido">R$ 0,00</strong><span>Recebido</span></div>
+          <div class="mini"><strong id="hDespesas">R$ 0,00</strong><span>Despesas</span></div>
+          <div class="mini"><strong id="hPendente">R$ 0,00</strong><span>A receber</span></div>
         </div>
+        <div class="acum"><span>Saldo acumulado geral</span><strong id="hAcum">R$ 0,00</strong></div>
+        <div class="acum-det" id="hAcumDet"></div>
       </div>
 
-      <div class="forma-scroll" id="porForma"><div class="fcard"><div class="t">💠 Pix</div><div class="v">R$&nbsp;100,00</div><div class="q">1 inscrição(ões)</div></div><div class="fcard"><div class="t">💳 Cartão</div><div class="v">R$&nbsp;0,00</div><div class="q">0 inscrição(ões)</div></div><div class="fcard"><div class="t">💵 Dinheiro</div><div class="v">R$&nbsp;0,00</div><div class="q">0 inscrição(ões)</div></div><div class="fcard"><div class="t">🎁 Oferta</div><div class="v">R$&nbsp;0,00</div><div class="q">0 inscrição(ões)</div></div></div>
+      <div class="forma-scroll" id="porForma"></div>
 
       <div class="busca">
-        <svg viewBox="0 0 24 24"><circle cx="11" cy="11" r="7"></circle><path d="M21 21l-4.3-4.3"></path></svg>
+        <svg viewBox="0 0 24 24"><circle cx="11" cy="11" r="7"/><path d="M21 21l-4.3-4.3"/></svg>
         <input id="fBusca" type="search" placeholder="Buscar pelo nome">
       </div>
       <div class="chips" id="chipsForma">
@@ -245,26 +258,57 @@
         <button class="chip-btn" data-v="Pendente">Pendentes</button>
       </div>
       <div class="exporta">
-        <button id="btnTodos"><svg viewBox="0 0 24 24"><rect x="3" y="4" width="18" height="17" rx="3"></rect><path d="M8 2v4M16 2v4M3 10h18"></path></svg>Todos os meses</button>
-        <button id="btnCsv"><svg viewBox="0 0 24 24"><path d="M12 3v12M7 10l5 5 5-5M5 21h14"></path></svg>Planilha</button>
-        <button id="btnPdf"><svg viewBox="0 0 24 24"><path d="M6 9V3h12v6M6 18H4a1 1 0 0 1-1-1v-6a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2v6a1 1 0 0 1-1 1h-2"></path><rect x="6" y="14" width="12" height="7"></rect></svg>PDF</button>
+        <button id="btnTodos"><svg viewBox="0 0 24 24"><rect x="3" y="4" width="18" height="17" rx="3"/><path d="M8 2v4M16 2v4M3 10h18"/></svg>Todos os meses</button>
+        <button id="btnCsv"><svg viewBox="0 0 24 24"><path d="M12 3v12M7 10l5 5 5-5M5 21h14"/></svg>Planilha</button>
+        <button id="btnPdf"><svg viewBox="0 0 24 24"><path d="M6 9V3h12v6M6 18H4a1 1 0 0 1-1-1v-6a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2v6a1 1 0 0 1-1 1h-2"/><rect x="6" y="14" width="12" height="7"/></svg>PDF</button>
       </div>
 
-      <div class="lista" id="lista"><div class="item"><div class="topo"><div class="av" style="background:#059669">JF</div><div class="info"><div class="nome">jocecino jose dos santos filho</div><div class="sub">12/10/2026 · 74988079171</div><div class="tags"><span class="tag">Pix</span><span class="tag Pago">Pago</span></div></div><div class="valor">R$&nbsp;100,00</div></div><div class="acoes-item"><a class="a ok" target="_blank" rel="noopener" href="https://wa.me/5574988079171?text=Ol%C3%A1%20jocecino%2C%20tudo%20bem%3F">WhatsApp</a><button class="a" data-e="a0f929a1">Editar</button><button class="a del" data-x="a0f929a1">Excluir</button></div></div></div>
+      <div class="lista" id="lista"></div>
+    </div>
+
+    <!-- Despesas -->
+    <div id="telaDesp" class="oculto">
+      <div class="aviso-edicao oculto" id="avisoDesp"><span>✏️ Editando uma despesa</span><button id="btnCancelarDesp">Cancelar</button></div>
+      <div class="card">
+        <label for="dDesc">Descrição da despesa</label>
+        <input id="dDesc" list="sugestoes" placeholder="Ex.: Aluguel" autocomplete="off" autocapitalize="sentences">
+        <datalist id="sugestoes"><option value="Aluguel"><option value="Água"><option value="Energia"><option value="Material"><option value="Alimentação"><option value="Transporte"><option value="Outros"></datalist>
+
+        <label for="dValor">Valor</label>
+        <div class="valor-wrap"><b>R$</b><input id="dValor" type="number" min="0" step="0.01" inputmode="decimal" placeholder="0,00"></div>
+
+        <label for="dData">Data da despesa</label>
+        <input type="date" id="dData">
+
+        <label for="dObs">Observação</label>
+        <textarea id="dObs" rows="2" placeholder="Opcional"></textarea>
+
+        <div style="margin-top:20px"><button class="btn" id="btnSalvarDesp">Lançar despesa</button></div>
+        <div class="dica">O valor lançado é descontado automaticamente do saldo do mês e do acumulado geral.</div>
+      </div>
+
+      <div class="mes-nav" style="margin-top:18px">
+        <button class="seta" id="mesAnt2" aria-label="Mês anterior"><svg viewBox="0 0 24 24"><path d="M15 18l-6-6 6-6"/></svg></button>
+        <div class="titulo" id="mesTitulo2">—</div>
+        <button class="seta" id="mesProx2" aria-label="Próximo mês"><svg viewBox="0 0 24 24"><path d="M9 18l6-6-6-6"/></svg></button>
+      </div>
+      <div class="total-desp"><span id="tdRotulo">Despesas do mês</span><b id="tdValor">R$ 0,00</b></div>
+      <div class="lista" id="listaDesp"></div>
     </div>
 
     <!-- Histórico -->
     <div id="telaHist" class="oculto">
-      <div class="exporta" style="margin-top:0"><button id="btnRecarregarHist"><svg viewBox="0 0 24 24"><path d="M21 12a9 9 0 1 1-3-6.7L21 8"></path><path d="M21 3v5h-5"></path></svg>Atualizar histórico</button></div>
-      <div class="hist" id="listaHist"><div class="h-item Cadastrou"><div class="l1"><span>2026-10-12</span><span>operador</span></div><div class="l2">Cadastrou · jocecino jose dos santos filho</div><div class="l3">Pix | R$ 100.00 | Pago</div></div></div>
+      <div class="exporta" style="margin-top:0"><button id="btnRecarregarHist"><svg viewBox="0 0 24 24"><path d="M21 12a9 9 0 1 1-3-6.7L21 8"/><path d="M21 3v5h-5"/></svg>Atualizar histórico</button></div>
+      <div class="hist" id="listaHist"></div>
     </div>
   </main>
 
   <nav id="nav">
     <div class="in">
-      <button id="tabCad" class="ativa"><svg viewBox="0 0 24 24"><path d="M16 21v-2a4 4 0 0 0-4-4H6a4 4 0 0 0-4 4v2"></path><circle cx="9" cy="7" r="4"></circle><path d="M19 8v6M22 11h-6"></path></svg>Cadastro</button>
-      <button id="tabRel" class=""><svg viewBox="0 0 24 24"><path d="M3 3v18h18"></path><path d="M7 15l4-4 3 3 5-6"></path></svg>Relatório</button>
-      <button id="tabHist" class=""><svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="9"></circle><path d="M12 7v5l3 2"></path></svg>Histórico</button>
+      <button id="tabCad" class="ativa"><svg viewBox="0 0 24 24"><path d="M16 21v-2a4 4 0 0 0-4-4H6a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M19 8v6M22 11h-6"/></svg>Cadastro</button>
+      <button id="tabRel"><svg viewBox="0 0 24 24"><path d="M3 3v18h18"/><path d="M7 15l4-4 3 3 5-6"/></svg>Relatório</button>
+      <button id="tabDesp"><svg viewBox="0 0 24 24"><path d="M20 12V8H6a2 2 0 0 1 0-4h12v4"/><path d="M4 6v12a2 2 0 0 0 2 2h14v-4"/><path d="M18 12a2 2 0 0 0 0 4h4v-4z"/></svg>Despesas</button>
+      <button id="tabHist"><svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="9"/><path d="M12 7v5l3 2"/></svg>Histórico</button>
     </div>
   </nav>
 </section>
@@ -282,6 +326,9 @@
   var forma = '', status = 'Pago';
   var mes = '';              // 'YYYY-MM' ou '' para todos
   var fForma = '', fStatus = '';
+  var tela = 'cad';
+  var resumo = { recebidoAcum: 0, despesasAcum: 0, despesasMes: 0 };
+  var despesas = [], editandoDesp = '';
 
   var BRL = function (v) { return Number(v || 0).toLocaleString('pt-BR', { style: 'currency', currency: 'BRL' }); };
   function $(id) { return document.getElementById(id); }
@@ -341,7 +388,7 @@
     $('main').classList.toggle('sem-nav', !admin);
     document.documentElement.style.setProperty('--nav', admin ? '68px' : '0px');
     mes = hojeISO().slice(0, 7);
-    limparForm(); aba('cad');
+    limparForm(); limparDesp(); aba('cad');
   }
   function sair() {
     token = ''; nivel = ''; sessionStorage.removeItem('hf_token'); sessionStorage.removeItem('hf_nivel');
@@ -351,15 +398,18 @@
 
   /* ---------- Abas ---------- */
   function aba(q) {
-    ['Cad', 'Rel', 'Hist'].forEach(function (n) {
+    tela = q;
+    ['Cad', 'Rel', 'Desp', 'Hist'].forEach(function (n) {
       var ativa = q === n.toLowerCase();
       $('tab' + n).classList.toggle('ativa', ativa);
       $('tela' + n).classList.toggle('oculto', !ativa);
     });
     window.scrollTo(0, 0);
     if (q === 'rel') carregar();
+    if (q === 'desp') carregarDesp();
     if (q === 'hist') carregarHist();
   }
+  $('tabDesp').onclick = function () { aba('desp'); };
   $('tabCad').onclick = function () { aba('cad'); };
   $('tabRel').onclick = function () { aba('rel'); };
   $('tabHist').onclick = function () { aba('hist'); };
@@ -438,24 +488,29 @@
 
   /* ---------- Relatório ---------- */
   function tituloMes() {
-    if (!mes) { $('mesTitulo').innerHTML = 'Todos os meses<small>histórico completo</small>'; return; }
-    var p = mes.split('-');
-    $('mesTitulo').innerHTML = new Date(+p[0], +p[1] - 1, 1).toLocaleDateString('pt-BR', { month: 'long' }) + '<small>' + p[0] + '</small>';
+    var html;
+    if (!mes) html = 'Todos os meses<small>histórico completo</small>';
+    else {
+      var p = mes.split('-');
+      html = new Date(+p[0], +p[1] - 1, 1).toLocaleDateString('pt-BR', { month: 'long' }) + '<small>' + p[0] + '</small>';
+    }
+    $('mesTitulo').innerHTML = html; $('mesTitulo2').innerHTML = html;
   }
+  function recarregar() { if (tela === 'desp') carregarDesp(); else carregar(); }
   function moverMes(d) {
     var base = mes || hojeISO().slice(0, 7), p = base.split('-');
     var dt = new Date(+p[0], +p[1] - 1 + d, 1);
     mes = dt.getFullYear() + '-' + String(dt.getMonth() + 1).padStart(2, '0');
-    carregar();
+    recarregar();
   }
-  $('mesAnt').onclick = function () { moverMes(-1); };
-  $('mesProx').onclick = function () { moverMes(1); };
-  $('btnTodos').onclick = function () { mes = mes ? '' : hojeISO().slice(0, 7); carregar(); };
+  $('mesAnt').onclick = $('mesAnt2').onclick = function () { moverMes(-1); };
+  $('mesProx').onclick = $('mesProx2').onclick = function () { moverMes(1); };
+  $('btnTodos').onclick = function () { mes = mes ? '' : hojeISO().slice(0, 7); recarregar(); };
 
   function carregar() {
     tituloMes();
     $('lista').innerHTML = '<div class="vazio">Carregando...</div>';
-    api('listar', { mes: mes }).then(function (j) { registros = j.registros; desenhar(); })
+    api('listar', { mes: mes }).then(function (j) { registros = j.registros; resumo = j.resumo; desenhar(); })
       .catch(function (e) { $('lista').innerHTML = '<div class="vazio">' + esc(e.message) + '</div>'; });
   }
 
@@ -496,12 +551,19 @@
 
   function desenhar() {
     var lista = filtrados();
+    // O saldo considera o período inteiro (não muda com busca/filtros)
     var pago = 0, pend = 0, pf = { Pix: [0, 0], 'Cartão': [0, 0], Dinheiro: [0, 0], Oferta: [0, 0] };
-    lista.forEach(function (r) {
+    registros.forEach(function (r) {
       if (r.status === 'Pago') pago += r.valor; else pend += r.valor;
       if (pf[r.forma]) { pf[r.forma][0]++; if (r.status === 'Pago') pf[r.forma][1] += r.valor; }
     });
-    $('hRecebido').textContent = BRL(pago); $('hPendente').textContent = BRL(pend); $('hQtd').textContent = lista.length;
+    var saldo = pago - resumo.despesasMes, acum = resumo.recebidoAcum - resumo.despesasAcum;
+    $('hRotulo').textContent = (mes ? 'Saldo do mês' : 'Saldo (todos os meses)') + ' · ' + registros.length + ' inscrições';
+    $('hSaldo').textContent = BRL(saldo);
+    $('hRecebido').textContent = BRL(pago); $('hDespesas').textContent = '− ' + BRL(resumo.despesasMes); $('hPendente').textContent = BRL(pend);
+    $('hAcum').textContent = BRL(acum);
+    $('hAcumDet').textContent = 'Recebido ' + BRL(resumo.recebidoAcum) + ' − despesas ' + BRL(resumo.despesasAcum);
+    $('hero').classList.toggle('neg', saldo < 0);
     var emo = { Pix: '💠', 'Cartão': '💳', Dinheiro: '💵', Oferta: '🎁' };
     $('porForma').innerHTML = Object.keys(pf).map(function (k) {
       return '<div class="fcard"><div class="t">' + emo[k] + ' ' + k + '</div><div class="v">' + BRL(pf[k][1]) + '</div><div class="q">' + pf[k][0] + ' inscrição(ões)</div></div>';
@@ -529,6 +591,64 @@
     if (t.dataset.e) editar(t.dataset.e);
     if (t.dataset.x) remover(t.dataset.x);
     if (t.dataset.p) marcarPago(t.dataset.p);
+  };
+
+  /* ---------- Despesas ---------- */
+  function limparDesp() {
+    editandoDesp = '';
+    $('dDesc').value = ''; $('dValor').value = ''; $('dObs').value = ''; $('dData').value = hojeISO();
+    $('avisoDesp').classList.add('oculto'); $('btnSalvarDesp').textContent = 'Lançar despesa';
+  }
+  $('btnCancelarDesp').onclick = limparDesp;
+
+  $('btnSalvarDesp').onclick = function () {
+    var d = { id: editandoDesp, desc: $('dDesc').value, valor: $('dValor').value, data: $('dData').value, obs: $('dObs').value };
+    if (!d.desc.trim()) return toast('Descreva a despesa.', 'err');
+    if (!(Number(d.valor) > 0)) return toast('Informe o valor da despesa.', 'err');
+    var b = $('btnSalvarDesp'); b.disabled = true; b.textContent = 'Salvando...';
+    api('salvarDespesa', { despesa: d }).then(function () {
+      var era = !!editandoDesp; limparDesp();
+      toast(era ? 'Despesa atualizada ✓' : 'Despesa lançada ✓', 'ok');
+      carregarDesp();
+    }).catch(function (e) { toast(e.message, 'err'); })
+      .then(function () { b.disabled = false; b.textContent = editandoDesp ? 'Salvar alterações' : 'Lançar despesa'; });
+  };
+
+  function carregarDesp() {
+    tituloMes();
+    if (!editandoDesp && !$('dData').value) $('dData').value = hojeISO();
+    $('listaDesp').innerHTML = '<div class="vazio">Carregando...</div>';
+    api('despesas', { mes: mes }).then(function (j) {
+      despesas = j.despesas;
+      var total = despesas.reduce(function (s, d) { return s + d.valor; }, 0);
+      $('tdRotulo').textContent = mes ? 'Despesas do mês' : 'Despesas (todos os meses)';
+      $('tdValor').textContent = BRL(total);
+      if (!despesas.length) { $('listaDesp').innerHTML = '<div class="vazio">Nenhuma despesa lançada neste período.</div>'; return; }
+      $('listaDesp').innerHTML = despesas.map(function (d) {
+        return '<div class="item"><div class="topo"><div class="av" style="background:#d6392b">🧾</div>' +
+          '<div class="info"><div class="nome">' + esc(d.desc) + '</div><div class="sub">' + esc(fmtData(d.data)) + '</div></div>' +
+          '<div class="valor neg">− ' + BRL(d.valor) + '</div></div>' +
+          (d.obs ? '<div class="obs">' + esc(d.obs) + '</div>' : '') +
+          '<div class="acoes-item"><button class="a" data-de="' + esc(d.id) + '">Editar</button>' +
+          '<button class="a del" data-dx="' + esc(d.id) + '">Excluir</button></div></div>';
+      }).join('');
+    }).catch(function (e) { $('listaDesp').innerHTML = '<div class="vazio">' + esc(e.message) + '</div>'; });
+  }
+
+  $('listaDesp').onclick = function (e) {
+    var t = e.target.closest('button'); if (!t) return;
+    var id = t.dataset.de || t.dataset.dx;
+    var d = despesas.filter(function (x) { return x.id === id; })[0]; if (!d) return;
+    if (t.dataset.de) {
+      editandoDesp = id;
+      $('dDesc').value = d.desc; $('dValor').value = d.valor; $('dData').value = d.data; $('dObs').value = d.obs;
+      $('avisoDesp').classList.remove('oculto'); $('btnSalvarDesp').textContent = 'Salvar alterações';
+      window.scrollTo(0, 0);
+    } else {
+      if (!confirm('Excluir a despesa "' + d.desc + '" (' + BRL(d.valor) + ')?')) return;
+      api('excluirDespesa', { id: id }).then(function () { toast('Despesa excluída', 'ok'); carregarDesp(); })
+        .catch(function (e) { toast(e.message, 'err'); });
+    }
   };
 
   /* ---------- Exportar ---------- */
@@ -562,6 +682,5 @@
 
   if (token && nivel) abrirApp();
 </script>
-
-
-</body></html>
+</body>
+</html>
